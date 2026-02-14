@@ -1,8 +1,20 @@
+## 🏗️ System Architecture
+
 ```mermaid
-flowchart LR
-    A[Crypto Price Producer] -->|JSON Messages| B[Kafka Topic: crypto_prices]
-    B --> C[Spark Structured Streaming]
-    C -->|Parse JSON + Transform| D[DataFrame]
-    D -->|foreachBatch JDBC Write| E[MySQL Database]
-    E --> F[crypto_prices Table]
+flowchart TD
+
+    A[Crypto Price Producer<br/>Python Script] 
+    B[Apache Kafka<br/>Topic: crypto_prices]
+    C[Apache Spark<br/>Structured Streaming Engine]
+    D[Data Parsing & Transformation<br/>JSON → Structured DataFrame]
+    E[foreachBatch Processing<br/>Micro-batch Execution]
+    F[(MySQL Database<br/>crypto_db)]
+    G[(Table: crypto_prices)]
+
+    A -->|Send JSON Messages| B
+    B -->|Stream Consumption| C
+    C --> D
+    D --> E
+    E -->|JDBC Write| F
+    F --> G
 ```
