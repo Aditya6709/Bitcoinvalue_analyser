@@ -1,12 +1,4 @@
 services:
-  mysql:
-    image: mysql:8.0
-    environment:
-      MYSQL_ROOT_PASSWORD: Aditya123
-      MYSQL_DATABASE: crypto_db
-    ports:
-      - "3306:3306"
-
   kafka:
     image: apache/kafka:latest
     environment:
@@ -25,5 +17,4 @@ services:
       - .:/app
     depends_on:
       - kafka
-      - mysql
     command: sleep infinity
